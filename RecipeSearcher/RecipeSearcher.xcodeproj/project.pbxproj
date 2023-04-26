@@ -132,8 +132,8 @@
 		83F97BFE29F343CB0098FAC6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				83F97BD629F3419E0098FAC6 /* Assets.xcassets */,
 				83F97BDB29F3419E0098FAC6 /* Info.plist */,
+				83F97BD629F3419E0098FAC6 /* Assets.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -454,7 +454,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7C9T7K4LUL;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = RecipeSearcher/Info.plist;
+				INFOPLIST_FILE = RecipeSearcher/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -480,7 +480,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7C9T7K4LUL;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = RecipeSearcher/Info.plist;
+				INFOPLIST_FILE = RecipeSearcher/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

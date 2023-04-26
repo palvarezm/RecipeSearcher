@@ -15,13 +15,14 @@ class RecipeDetailViewModel {
 
     struct Output {
         let viewDidLoadPublisher: AnyPublisher<Void, Never>
+        let setDataSourcePublisher: AnyPublisher<RecipeDetailModel?, Never>
         #warning("Change Void to coordinate data (a,b)")
         let navigateToRecipeDetailPublisher: AnyPublisher<Void, Never>
     }
 
     private var apiClient: APIClient
     private var recipeId: Int
-    var recipeDetail: RecipeDetailModel?
+    @Published var recipeDetail: RecipeDetailModel?
     private var cancellables = Set<AnyCancellable>()
 
     // MARK: - Initializers
@@ -41,6 +42,12 @@ class RecipeDetailViewModel {
             }
             .eraseToAnyPublisher()
 
+        let setDataSourcePublisher: AnyPublisher<RecipeDetailModel?, Never> = $recipeDetail
+            .flatMap { recipeDetail in
+                return Just(recipeDetail).eraseToAnyPublisher()
+            }
+            .eraseToAnyPublisher()
+
         let navigateToRecipeDetailPublisher: AnyPublisher<Void, Never> = input.navigateToMapTappedPublisher
             .flatMap { _ in
                 return Just(()).eraseToAnyPublisher()
@@ -48,6 +55,7 @@ class RecipeDetailViewModel {
             .eraseToAnyPublisher()
 
         return .init(viewDidLoadPublisher: viewDidLoadPublisher,
+                     setDataSourcePublisher: setDataSourcePublisher,
                      navigateToRecipeDetailPublisher: navigateToRecipeDetailPublisher)
     }
 

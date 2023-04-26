@@ -13,30 +13,37 @@ class RecipeDetailViewController: UIViewController {
     private lazy var nameLabel: UILabel = {
         let view = UILabel()
         view.numberOfLines = 1
-        view.text = "xaxaxax"
+        view.font = UIFont.boldSystemFont(ofSize: Constants.nameLabelFontSize)
+        view.textAlignment = .center
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
     private lazy var imageView: UIImageView = {
         let view = UIImageView()
+        view.image = .init(named: "fruitbowl")
+        view.contentMode = .scaleAspectFit
+        view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
     private lazy var ingredientsLabel: UILabel = {
         let view = UILabel()
+        view.numberOfLines = 0
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
     private lazy var stepsLabel: UILabel = {
         let view = UILabel()
+        view.numberOfLines = 0
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
     private var viewModel: RecipeDetailViewModel
+    @Published private var recipeDetail: RecipeDetailModel?
 
     private let viewDidLoadSubject = PassthroughSubject<Void, Never>()
     private let navigateToMapTappedSubject = PassthroughSubject<Void, Never>()
@@ -46,8 +53,15 @@ class RecipeDetailViewController: UIViewController {
     private enum Constants {
         static let viewBackgroundColor = UIColor.white
         // Margins
-        static let searchBarTopMargin = 24.0
-        static let searchBarHorizontalMargin = 16.0
+        static let nameLabelTopMargin = 8.0
+        static let nameLabelHorizontalMargin = 18.0
+        static let imageViewBottomMargin = 16.0
+        static let ingredientsLabelTopMargin = 16.0
+        static let ingredientsLabelHorizontalMargin = 16.0
+        static let stepsLabelTopMargin = 16.0
+        static let stepsLabelHorizontalMargin = 16.0
+        // Label
+        static let nameLabelFontSize = 22.0
     }
 
     // MARK: - Initializers
@@ -75,6 +89,17 @@ class RecipeDetailViewController: UIViewController {
 
     // MARK: - Bindings
     private func bindings() {
+        $recipeDetail
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.nameLabel.text = self?.recipeDetail?.name
+                let ingredients = self?.recipeDetail?.ingredients.map { "- \($0)" }
+                self?.ingredientsLabel.text = ingredients?.joined(separator: "\n")
+                let steps = self?.recipeDetail?.steps.map { "- \($0)" }
+                self?.stepsLabel.text = steps?.joined(separator: "\n")
+            }
+            .store(in: &cancellables)
+
         let input = RecipeDetailViewModel.Input(
             viewDidLoadPublisher: viewDidLoadSubject.eraseToAnyPublisher(),
             navigateToMapTappedPublisher: navigateToMapTappedSubject.eraseToAnyPublisher())
@@ -82,10 +107,14 @@ class RecipeDetailViewController: UIViewController {
 
         output.viewDidLoadPublisher
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                self?.nameLabel.text = self?.viewModel.recipeDetail?.name
-            }
+            .sink { _ in }
             .store(in: &cancellables)
+
+        output.setDataSourcePublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] recipeDetail in
+                self?.recipeDetail = recipeDetail
+            }.store(in: &cancellables)
 
         output.navigateToRecipeDetailPublisher
             .receive(on: DispatchQueue.main)
@@ -107,37 +136,46 @@ class RecipeDetailViewController: UIViewController {
     private func setupNameLabel() {
         view.addSubview(nameLabel)
         NSLayoutConstraint.activate([
-            nameLabel.topAnchor.constraint(equalTo: view.topAnchor),
-            nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            nameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            nameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
+                                           constant: Constants.nameLabelTopMargin),
+            nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor,
+                                               constant: Constants.nameLabelHorizontalMargin),
+            nameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor,
+                                                constant: -Constants.nameLabelHorizontalMargin)
         ])
     }
 
     private func setupImageView() {
         view.addSubview(imageView)
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor),
-            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+            imageView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor,
+                                           constant: Constants.imageViewBottomMargin),
+            imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
 
     private func setupIngredientsLabel() {
         view.addSubview(ingredientsLabel)
         NSLayoutConstraint.activate([
-            ingredientsLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor),
-            ingredientsLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor),
-            ingredientsLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            ingredientsLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor,
+                                                  constant: Constants.ingredientsLabelTopMargin),
+            ingredientsLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor,
+                                                      constant: Constants.ingredientsLabelHorizontalMargin),
+            ingredientsLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor,
+                                                       constant: -Constants.ingredientsLabelHorizontalMargin)
         ])
     }
 
     private func setupStepsLabel() {
         view.addSubview(stepsLabel)
         NSLayoutConstraint.activate([
-            stepsLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor),
-            stepsLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            stepsLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            stepsLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-            
+            stepsLabel.topAnchor.constraint(equalTo: ingredientsLabel.bottomAnchor,
+                                            constant: Constants.stepsLabelTopMargin),
+            stepsLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor,
+                                                constant: Constants.stepsLabelHorizontalMargin),
+            stepsLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor,
+                                                 constant: -Constants.stepsLabelHorizontalMargin),
+            stepsLabel.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor)
         ])
     }
 }

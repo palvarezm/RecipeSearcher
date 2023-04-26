@@ -14,17 +14,26 @@ enum HTTPMethod: String {
 protocol Request {
     var method: HTTPMethod { get }
     var path: String { get }
+    var queryParams: [String: Any]? { get }
     associatedtype ReturnType: Codable
 }
 
 extension Request {
     var method: HTTPMethod { return .get }
     var path: String { return "" }
+    var queryParams: [String: Any]? { return nil }
+
+    func addQueryParams(queryParams: [String: Any]?) -> [URLQueryItem]? {
+        guard let queryParams = queryParams else { return nil }
+
+        return queryParams.map { URLQueryItem(name: $0.key, value: "\($0.value)") }
+    }
 
     func asURLRequest(baseURL: String) -> URLRequest? {
         guard var urlComponents = URLComponents(string: baseURL) else { return nil }
 
         urlComponents.path = urlComponents.path.appending(path)
+        urlComponents.queryItems = addQueryParams(queryParams: queryParams)
 
         guard let finalURL = urlComponents.url else { return nil }
 
@@ -36,10 +45,12 @@ extension Request {
 
 enum RecipeRequest {
     case recipes
+    case recipe
 
     var path: String {
         switch self {
         case .recipes: return "recipes"
+        case .recipe: return "recipe"
         }
     }
 }

@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import SDWebImage
 
 class RecipeDetailViewController: UIViewController {
     // MARK: - Properties
@@ -21,7 +22,6 @@ class RecipeDetailViewController: UIViewController {
 
     private lazy var imageView: UIImageView = {
         let view = UIImageView()
-        view.image = .init(named: "fruitbowl")
         view.contentMode = .scaleAspectFit
         view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -97,6 +97,11 @@ class RecipeDetailViewController: UIViewController {
                 self?.ingredientsLabel.text = ingredients?.joined(separator: "\n")
                 let steps = self?.recipeDetail?.steps.map { "- \($0)" }
                 self?.stepsLabel.text = steps?.joined(separator: "\n")
+                if let stringImageURL = self?.recipeDetail?.imageURL,
+                    let imageURL = URL(string: stringImageURL) {
+                    self?.imageView.sd_setImage(with: imageURL,
+                                                placeholderImage: .init(named: "fruitbowl"))
+                }
             }
             .store(in: &cancellables)
 

@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		83260C3B29F8D69F000DCBDB /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83260C3A29F8D69F000DCBDB /* HomeViewModel.swift */; };
+		83260C3E29F8D6D2000DCBDB /* RecipesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83260C3D29F8D6D2000DCBDB /* RecipesResponse.swift */; };
+		83260C4029F8DDB5000DCBDB /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83260C3F29F8DDB5000DCBDB /* APIClient.swift */; };
+		83260C4229F8DDEC000DCBDB /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83260C4129F8DDEC000DCBDB /* Request.swift */; };
+		83260C4429F8DE18000DCBDB /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83260C4329F8DE18000DCBDB /* APIConstants.swift */; };
+		83260C4829F8E0DE000DCBDB /* APIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83260C4729F8E0DE000DCBDB /* APIRouter.swift */; };
+		83260C4A29F8E556000DCBDB /* RecipeCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83260C4929F8E556000DCBDB /* RecipeCellModel.swift */; };
+		83260C4E29F8ED67000DCBDB /* RecipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83260C4D29F8ED67000DCBDB /* RecipeCell.swift */; };
+		83260C5429F90261000DCBDB /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 83260C5329F90261000DCBDB /* SDWebImage */; };
 		83F97BCE29F3419C0098FAC6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F97BCD29F3419C0098FAC6 /* AppDelegate.swift */; };
 		83F97BD029F3419C0098FAC6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F97BCF29F3419C0098FAC6 /* SceneDelegate.swift */; };
 		83F97BD229F3419C0098FAC6 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F97BD129F3419C0098FAC6 /* HomeViewController.swift */; };
@@ -34,6 +43,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		83260C3A29F8D69F000DCBDB /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		83260C3D29F8D6D2000DCBDB /* RecipesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesResponse.swift; sourceTree = "<group>"; };
+		83260C3F29F8DDB5000DCBDB /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		83260C4129F8DDEC000DCBDB /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		83260C4329F8DE18000DCBDB /* APIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
+		83260C4729F8E0DE000DCBDB /* APIRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRouter.swift; sourceTree = "<group>"; };
+		83260C4929F8E556000DCBDB /* RecipeCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCellModel.swift; sourceTree = "<group>"; };
+		83260C4D29F8ED67000DCBDB /* RecipeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCell.swift; sourceTree = "<group>"; };
 		83F97BCA29F3419C0098FAC6 /* RecipeSearcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RecipeSearcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83F97BCD29F3419C0098FAC6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		83F97BCF29F3419C0098FAC6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -52,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83260C5429F90261000DCBDB /* SDWebImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,6 +90,56 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		83260C3729F8D68D000DCBDB /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				83260C3A29F8D69F000DCBDB /* HomeViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		83260C3829F8D690000DCBDB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				83260C4C29F8ED5F000DCBDB /* TableView */,
+				83F97BD129F3419C0098FAC6 /* HomeViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		83260C3929F8D692000DCBDB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				83260C4B29F8ED57000DCBDB /* TableView */,
+				83260C3C29F8D6AE000DCBDB /* Remote */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		83260C3C29F8D6AE000DCBDB /* Remote */ = {
+			isa = PBXGroup;
+			children = (
+				83260C3D29F8D6D2000DCBDB /* RecipesResponse.swift */,
+			);
+			path = Remote;
+			sourceTree = "<group>";
+		};
+		83260C4B29F8ED57000DCBDB /* TableView */ = {
+			isa = PBXGroup;
+			children = (
+				83260C4929F8E556000DCBDB /* RecipeCellModel.swift */,
+			);
+			path = TableView;
+			sourceTree = "<group>";
+		};
+		83260C4C29F8ED5F000DCBDB /* TableView */ = {
+			isa = PBXGroup;
+			children = (
+				83260C4D29F8ED67000DCBDB /* RecipeCell.swift */,
+			);
+			path = TableView;
+			sourceTree = "<group>";
+		};
 		83F97BC129F3419C0098FAC6 = {
 			isa = PBXGroup;
 			children = (
@@ -149,6 +217,10 @@
 		83F97C0029F3442C0098FAC6 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				83260C3F29F8DDB5000DCBDB /* APIClient.swift */,
+				83260C4729F8E0DE000DCBDB /* APIRouter.swift */,
+				83260C4329F8DE18000DCBDB /* APIConstants.swift */,
+				83260C4129F8DDEC000DCBDB /* Request.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -156,7 +228,9 @@
 		83F97C0129F344340098FAC6 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				83F97BD129F3419C0098FAC6 /* HomeViewController.swift */,
+				83260C3929F8D692000DCBDB /* Model */,
+				83260C3829F8D690000DCBDB /* View */,
+				83260C3729F8D68D000DCBDB /* ViewModel */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -177,6 +251,9 @@
 			dependencies = (
 			);
 			name = RecipeSearcher;
+			packageProductDependencies = (
+				83260C5329F90261000DCBDB /* SDWebImage */,
+			);
 			productName = RecipeSearcher;
 			productReference = 83F97BCA29F3419C0098FAC6 /* RecipeSearcher.app */;
 			productType = "com.apple.product-type.application";
@@ -249,6 +326,9 @@
 				Base,
 			);
 			mainGroup = 83F97BC129F3419C0098FAC6;
+			packageReferences = (
+				83260C5229F90261000DCBDB /* XCRemoteSwiftPackageReference "SDWebImage" */,
+			);
 			productRefGroup = 83F97BCB29F3419C0098FAC6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -291,8 +371,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				83F97BD229F3419C0098FAC6 /* HomeViewController.swift in Sources */,
+				83260C4829F8E0DE000DCBDB /* APIRouter.swift in Sources */,
+				83260C4229F8DDEC000DCBDB /* Request.swift in Sources */,
+				83260C4029F8DDB5000DCBDB /* APIClient.swift in Sources */,
 				83F97BCE29F3419C0098FAC6 /* AppDelegate.swift in Sources */,
+				83260C3E29F8D6D2000DCBDB /* RecipesResponse.swift in Sources */,
+				83260C4E29F8ED67000DCBDB /* RecipeCell.swift in Sources */,
+				83260C4429F8DE18000DCBDB /* APIConstants.swift in Sources */,
 				83F97BD029F3419C0098FAC6 /* SceneDelegate.swift in Sources */,
+				83260C3B29F8D69F000DCBDB /* HomeViewModel.swift in Sources */,
+				83260C4A29F8E556000DCBDB /* RecipeCellModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -456,6 +544,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RecipeSearcher/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -482,6 +571,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RecipeSearcher/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -613,6 +703,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		83260C5229F90261000DCBDB /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 5.9.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		83260C5329F90261000DCBDB /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 83260C5229F90261000DCBDB /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 83F97BC229F3419C0098FAC6 /* Project object */;
 }

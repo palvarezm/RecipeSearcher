@@ -11,6 +11,18 @@ import SDWebImage
 
 class RecipeDetailViewController: UIViewController {
     // MARK: - Properties
+    private lazy var scrollView: UIScrollView = {
+        let view = UIScrollView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
+    private lazy var contentView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
     private lazy var nameLabel: UILabel = {
         let view = UILabel()
         view.numberOfLines = 1
@@ -60,8 +72,11 @@ class RecipeDetailViewController: UIViewController {
         static let ingredientsLabelHorizontalMargin = 16.0
         static let stepsLabelTopMargin = 16.0
         static let stepsLabelHorizontalMargin = 16.0
+        static let stepsLabelBottomMargin = 16.0
         // Label
         static let nameLabelFontSize = 22.0
+        // Image
+        static let imageViewMaxHeight = 450.0
     }
 
     // MARK: - Initializers
@@ -132,55 +147,81 @@ class RecipeDetailViewController: UIViewController {
 
     // MARK: - Setup
     private func setup() {
+        setupScrollView()
+        setupContentView()
         setupNameLabel()
         setupImageView()
         setupIngredientsLabel()
         setupStepsLabel()
     }
 
-    private func setupNameLabel() {
-        view.addSubview(nameLabel)
+    private func setupScrollView() {
+        view.addSubview(scrollView)
         NSLayoutConstraint.activate([
-            nameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
+            scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            scrollView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
+
+    private func setupContentView() {
+        scrollView.addSubview(contentView)
+        NSLayoutConstraint.activate([
+            contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
+        ])
+    }
+
+    private func setupNameLabel() {
+        contentView.addSubview(nameLabel)
+        NSLayoutConstraint.activate([
+            nameLabel.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor,
                                            constant: Constants.nameLabelTopMargin),
-            nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor,
+            nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,
                                                constant: Constants.nameLabelHorizontalMargin),
-            nameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor,
+            nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,
                                                 constant: -Constants.nameLabelHorizontalMargin)
         ])
     }
 
     private func setupImageView() {
-        view.addSubview(imageView)
+        contentView.addSubview(imageView)
         NSLayoutConstraint.activate([
+            imageView.heightAnchor.constraint(lessThanOrEqualToConstant: Constants.imageViewMaxHeight),
+            imageView.widthAnchor.constraint(equalTo: view.widthAnchor),
             imageView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor,
                                            constant: Constants.imageViewBottomMargin),
-            imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])
     }
 
     private func setupIngredientsLabel() {
-        view.addSubview(ingredientsLabel)
+        contentView.addSubview(ingredientsLabel)
         NSLayoutConstraint.activate([
             ingredientsLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor,
                                                   constant: Constants.ingredientsLabelTopMargin),
-            ingredientsLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor,
+            ingredientsLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,
                                                       constant: Constants.ingredientsLabelHorizontalMargin),
-            ingredientsLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor,
+            ingredientsLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,
                                                        constant: -Constants.ingredientsLabelHorizontalMargin)
         ])
     }
 
     private func setupStepsLabel() {
-        view.addSubview(stepsLabel)
+        contentView.addSubview(stepsLabel)
         NSLayoutConstraint.activate([
             stepsLabel.topAnchor.constraint(equalTo: ingredientsLabel.bottomAnchor,
                                             constant: Constants.stepsLabelTopMargin),
-            stepsLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor,
+            stepsLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,
                                                 constant: Constants.stepsLabelHorizontalMargin),
-            stepsLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor,
+            stepsLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,
                                                  constant: -Constants.stepsLabelHorizontalMargin),
-            stepsLabel.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor)
+            stepsLabel.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor,
+                                               constant: -Constants.stepsLabelBottomMargin)
         ])
     }
 }

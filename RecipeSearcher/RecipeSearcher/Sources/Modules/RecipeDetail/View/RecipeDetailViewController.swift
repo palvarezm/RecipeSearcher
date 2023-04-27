@@ -181,8 +181,7 @@ class RecipeDetailViewController: UIViewController {
         output.navigateToMapPublisher
             .receive(on: DispatchQueue.main)
             .sink { coordinates in
-                debugPrint(coordinates)
-                self.navigationController?.pushViewController(RecipeOriginLocationViewController(),
+                self.navigationController?.pushViewController(RecipeOriginLocationViewController(coordinates: coordinates),
                                                               animated: true)
             }
             .store(in: &cancellables)

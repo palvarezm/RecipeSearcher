@@ -19,6 +19,18 @@ class RecipeOriginLocationViewController: UIViewController {
         return view
     }()
 
+    private var coordinates: Coordinates
+
+    // MARK: - Initializers
+    init(coordinates: Coordinates) {
+        self.coordinates = coordinates
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - Lifecyle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +40,7 @@ class RecipeOriginLocationViewController: UIViewController {
     // MARK: - Setup
     private func setup() {
         setupMapView()
+        showOriginLocation()
     }
 
     private func setupMapView() {
@@ -38,6 +51,11 @@ class RecipeOriginLocationViewController: UIViewController {
             mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+
+    private func showOriginLocation() {
+        let location = CLLocationCoordinate2D(latitude: coordinates.0, longitude: coordinates.1)
+        mapView.setCenter(location, animated: false)
     }
 }
 

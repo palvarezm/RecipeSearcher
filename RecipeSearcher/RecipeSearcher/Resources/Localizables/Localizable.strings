@@ -1,0 +1,12 @@
+/* 
+  Localizable.strings
+  RecipeSearcher
+
+  Created by Paul Alvarez on 27/04/23.
+  
+*/
+
+// MARK: - RecipeDetail
+"recipe_detail_ingredients_title" = "Ingredients";
+"recipe_detail_steps_title" = "Steps";
+"recipe_detail_check_origin_button_title" = "Go to origin location";

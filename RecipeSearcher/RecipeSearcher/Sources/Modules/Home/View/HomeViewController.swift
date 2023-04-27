@@ -87,9 +87,9 @@ class HomeViewController: UIViewController {
 
         output.navigateToRecipeDetailPublisher
             .receive(on: DispatchQueue.main)
-            .sink { recipe in
-                #warning("Implement navigation")
-                debugPrint("Navigate to Detail with \(recipe)")
+            .sink { [weak self] recipe in
+                let viewModel = RecipeDetailViewModel(from: recipe.id)
+                self?.navigationController?.pushViewController(RecipeDetailViewController(viewModel: viewModel), animated: true)
             }
             .store(in: &cancellables)
 

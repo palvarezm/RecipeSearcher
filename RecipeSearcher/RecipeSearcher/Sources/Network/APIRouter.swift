@@ -11,4 +11,15 @@ struct APIRouter {
         var method: HTTPMethod = .get
         var path: String = RecipeRequest.recipes.path
     }
+
+    struct GetRecipeDetail: Request {
+        typealias ReturnType = RecipeDetailResponse
+        var method: HTTPMethod = .get
+        var path: String = RecipeRequest.recipe.path
+        var queryParams: [String: Any]?
+
+        init(queryParams: APIParameters.GetRecipeDetailParams) {
+            self.queryParams = queryParams.asDictionary
+        }
+    }
 }

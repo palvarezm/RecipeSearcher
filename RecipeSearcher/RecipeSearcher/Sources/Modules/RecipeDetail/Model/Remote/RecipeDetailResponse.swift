@@ -12,7 +12,7 @@ struct RecipeDetailResponse: Codable {
     let steps: [String]
     let timers: [Int]
     let imageURL: String
-//    let originalURL: String?
+    let location: Location
 
     struct Ingredient: Codable {
         let quantity: String
@@ -28,5 +28,10 @@ struct RecipeDetailResponse: Codable {
             case misc = "Misc"
             case produce = "Produce"
         }
+    }
+
+    struct Location: Codable {
+        let latitude: Double
+        let longitude: Double
     }
 }

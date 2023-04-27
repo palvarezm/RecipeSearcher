@@ -10,14 +10,13 @@ import Combine
 class RecipeDetailViewModel {
     struct Input {
         let viewDidLoadPublisher: AnyPublisher<Void, Never>
-        let navigateToMapTappedPublisher: AnyPublisher<Void, Never>
+        let navigateToMapTappedPublisher: AnyPublisher<Coordinates, Never>
     }
 
     struct Output {
         let viewDidLoadPublisher: AnyPublisher<Void, Never>
         let setDataSourcePublisher: AnyPublisher<RecipeDetailModel?, Never>
-        #warning("Change Void to coordinate data (a,b)")
-        let navigateToRecipeDetailPublisher: AnyPublisher<Void, Never>
+        let navigateToMapPublisher: AnyPublisher<Coordinates, Never>
     }
 
     private var apiClient: APIClient
@@ -48,15 +47,15 @@ class RecipeDetailViewModel {
             }
             .eraseToAnyPublisher()
 
-        let navigateToRecipeDetailPublisher: AnyPublisher<Void, Never> = input.navigateToMapTappedPublisher
-            .flatMap { _ in
-                return Just(()).eraseToAnyPublisher()
+        let navigateToMapPublisher: AnyPublisher<Coordinates, Never> = input.navigateToMapTappedPublisher
+            .flatMap { coordinates in
+                return Just(coordinates).eraseToAnyPublisher()
             }
             .eraseToAnyPublisher()
 
         return .init(viewDidLoadPublisher: viewDidLoadPublisher,
                      setDataSourcePublisher: setDataSourcePublisher,
-                     navigateToRecipeDetailPublisher: navigateToRecipeDetailPublisher)
+                     navigateToMapPublisher: navigateToMapPublisher)
     }
 
     // MARK: - API Calls

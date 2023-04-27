@@ -88,7 +88,7 @@ class RecipeDetailViewController: UIViewController {
     @Published private var recipeDetail: RecipeDetailModel?
 
     private let viewDidLoadSubject = PassthroughSubject<Void, Never>()
-    private let navigateToMapTappedSubject = PassthroughSubject<Void, Never>()
+    private let navigateToMapTappedSubject = PassthroughSubject<Coordinates, Never>()
     private var cancellables = Set<AnyCancellable>()
 
     // MARK: - Constants
@@ -178,11 +178,12 @@ class RecipeDetailViewController: UIViewController {
                 self?.recipeDetail = recipeDetail
             }.store(in: &cancellables)
 
-        output.navigateToRecipeDetailPublisher
+        output.navigateToMapPublisher
             .receive(on: DispatchQueue.main)
-            .sink { recipe in
-                #warning("Change navigation to MapLocationVC")
-                self.navigationController?.pushViewController(RecipeOriginLocationViewController(), animated: true)
+            .sink { coordinates in
+                debugPrint(coordinates)
+                self.navigationController?.pushViewController(RecipeOriginLocationViewController(),
+                                                              animated: true)
             }
             .store(in: &cancellables)
     }
@@ -342,6 +343,8 @@ class RecipeDetailViewController: UIViewController {
 
     @objc
     private func checkOriginButtonTapped() {
-        navigateToMapTappedSubject.send()
+        guard let coordinates = recipeDetail?.mapCoordinates else { return }
+
+        navigateToMapTappedSubject.send(coordinates)
     }
 }

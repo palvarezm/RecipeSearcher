@@ -13,8 +13,6 @@ class RecipeOriginLocationViewController: UIViewController {
     // MARK: - Properties
     private lazy var mapView: MKMapView = {
         let view = MKMapView()
-        view.overrideUserInterfaceStyle = .dark
-        view.delegate = self
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -57,8 +55,4 @@ class RecipeOriginLocationViewController: UIViewController {
         let location = CLLocationCoordinate2D(latitude: coordinates.0, longitude: coordinates.1)
         mapView.setCenter(location, animated: false)
     }
-}
-
-extension RecipeOriginLocationViewController: MKMapViewDelegate {
-    
 }

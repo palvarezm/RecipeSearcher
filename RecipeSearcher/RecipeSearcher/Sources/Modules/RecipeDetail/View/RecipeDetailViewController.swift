@@ -40,16 +40,32 @@ class RecipeDetailViewController: UIViewController {
         return view
     }()
 
-    private lazy var ingredientsLabel: UILabel = {
+    private lazy var ingredientsTitleLabel: UILabel = {
         let view = UILabel()
-        view.numberOfLines = 0
+        view.text = "recipe_detail_ingredients_title".localized
+        view.font = UIFont.boldSystemFont(ofSize: Constants.ingredientsTitleLabelFontSize)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
-    private lazy var stepsLabel: UILabel = {
+    private lazy var ingredientsStackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
+    private lazy var stepsTitleLabel: UILabel = {
         let view = UILabel()
-        view.numberOfLines = 0
+        view.text = "recipe_detail_steps_title".localized
+        view.font = UIFont.boldSystemFont(ofSize: Constants.stepsTitleLabelFontSize)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
+    private lazy var stepsStackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -70,11 +86,19 @@ class RecipeDetailViewController: UIViewController {
         static let imageViewBottomMargin = 16.0
         static let ingredientsLabelTopMargin = 16.0
         static let ingredientsLabelHorizontalMargin = 16.0
+        static let ingredientsStackViewTopMargin = 8.0
+        static let ingredientsStackViewHorizontalMargin = 16.0
+        static let stepsStackViewTopMargin = 8.0
+        static let stepsStackViewHorizontalMargin = 16.0
         static let stepsLabelTopMargin = 16.0
         static let stepsLabelHorizontalMargin = 16.0
         static let stepsLabelBottomMargin = 16.0
         // Label
-        static let nameLabelFontSize = 22.0
+        static let nameLabelFontSize = 28.0
+        static let ingredientsTitleLabelFontSize = 22.0
+        static let ingredientLabelFontSize = 16.0
+        static let stepsTitleLabelFontSize = 22.0
+        static let stepLabelFontSize = 16.0
         // Image
         static let imageViewMaxHeight = 450.0
     }
@@ -108,10 +132,9 @@ class RecipeDetailViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.nameLabel.text = self?.recipeDetail?.name
-                let ingredients = self?.recipeDetail?.ingredients.map { "- \($0)" }
-                self?.ingredientsLabel.text = ingredients?.joined(separator: "\n")
-                let steps = self?.recipeDetail?.steps.map { "- \($0)" }
-                self?.stepsLabel.text = steps?.joined(separator: "\n")
+                self?.listIngredients()
+                self?.listSteps()
+
                 if let stringImageURL = self?.recipeDetail?.imageURL,
                     let imageURL = URL(string: stringImageURL) {
                     self?.imageView.sd_setImage(with: imageURL,
@@ -151,8 +174,10 @@ class RecipeDetailViewController: UIViewController {
         setupContentView()
         setupNameLabel()
         setupImageView()
-        setupIngredientsLabel()
-        setupStepsLabel()
+        setupIngredientsTitleLabel()
+        setupIngredientsStackView()
+        setupStepsTitleLabel()
+        setupStepsStackView()
     }
 
     private func setupScrollView() {
@@ -199,29 +224,81 @@ class RecipeDetailViewController: UIViewController {
         ])
     }
 
-    private func setupIngredientsLabel() {
-        contentView.addSubview(ingredientsLabel)
+    private func setupIngredientsTitleLabel() {
+        contentView.addSubview(ingredientsTitleLabel)
         NSLayoutConstraint.activate([
-            ingredientsLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor,
-                                                  constant: Constants.ingredientsLabelTopMargin),
-            ingredientsLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,
-                                                      constant: Constants.ingredientsLabelHorizontalMargin),
-            ingredientsLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,
-                                                       constant: -Constants.ingredientsLabelHorizontalMargin)
+            ingredientsTitleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor,
+                                                       constant: Constants.ingredientsLabelTopMargin),
+            ingredientsTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,
+                                                           constant: Constants.ingredientsLabelHorizontalMargin),
+            ingredientsTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,
+                                                            constant: -Constants.ingredientsLabelHorizontalMargin)
         ])
     }
 
-    private func setupStepsLabel() {
-        contentView.addSubview(stepsLabel)
+    private func setupIngredientsStackView() {
+        contentView.addSubview(ingredientsStackView)
         NSLayoutConstraint.activate([
-            stepsLabel.topAnchor.constraint(equalTo: ingredientsLabel.bottomAnchor,
-                                            constant: Constants.stepsLabelTopMargin),
-            stepsLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,
-                                                constant: Constants.stepsLabelHorizontalMargin),
-            stepsLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,
-                                                 constant: -Constants.stepsLabelHorizontalMargin),
-            stepsLabel.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor,
-                                               constant: -Constants.stepsLabelBottomMargin)
+            ingredientsStackView.topAnchor.constraint(equalTo: ingredientsTitleLabel.bottomAnchor,
+                                                      constant: Constants.ingredientsStackViewTopMargin),
+            ingredientsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor,
+                                                          constant: Constants.ingredientsStackViewHorizontalMargin),
+            ingredientsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor,
+                                                          constant: -Constants.ingredientsStackViewHorizontalMargin)
         ])
+    }
+
+    private func setupStepsTitleLabel() {
+        contentView.addSubview(stepsTitleLabel)
+        NSLayoutConstraint.activate([
+            stepsTitleLabel.topAnchor.constraint(equalTo: ingredientsStackView.bottomAnchor,
+                                                 constant: Constants.stepsLabelTopMargin),
+            stepsTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,
+                                                     constant: Constants.stepsLabelHorizontalMargin),
+            stepsTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,
+                                                      constant: -Constants.stepsLabelHorizontalMargin)
+        ])
+    }
+
+    private func setupStepsStackView() {
+        contentView.addSubview(stepsStackView)
+        NSLayoutConstraint.activate([
+            stepsStackView.topAnchor.constraint(equalTo: stepsTitleLabel.bottomAnchor,
+                                                constant: Constants.stepsStackViewTopMargin),
+            stepsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,
+                                                    constant: Constants.stepsStackViewHorizontalMargin),
+            stepsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,
+                                                     constant: -Constants.stepsStackViewHorizontalMargin),
+            stepsStackView.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor,
+                                                   constant: -Constants.stepsLabelBottomMargin)
+        ])
+    }
+
+    // Configuration
+    private func listIngredients() {
+        recipeDetail?.ingredients.forEach { ingredientsStackView.addArrangedSubview(buildIngredientLabel(text: $0)) }
+    }
+
+    private func buildIngredientLabel(text: String) -> UILabel {
+        let label = UILabel()
+        label.text = "• \(text)"
+        label.font = UIFont.systemFont(ofSize: Constants.ingredientLabelFontSize)
+        label.numberOfLines = 0
+        return label
+    }
+
+    private func listSteps() {
+        guard let steps = recipeDetail?.steps else { return }
+
+        steps.indices.forEach{ stepsStackView.addArrangedSubview(
+            buildStepLabel(index: $0+1, text: steps[$0])) }
+    }
+
+    private func buildStepLabel(index: Int, text: String) -> UILabel {
+        let label = UILabel()
+        label.text = "\(index). \(text)"
+        label.font = UIFont.systemFont(ofSize: Constants.stepLabelFontSize)
+        label.numberOfLines = 0
+        return label
     }
 }

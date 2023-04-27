@@ -38,7 +38,7 @@ class RecipeOriginLocationViewController: UIViewController {
     // MARK: - Setup
     private func setup() {
         setupMapView()
-        showOriginLocation()
+        showOriginLocationPin()
     }
 
     private func setupMapView() {
@@ -51,8 +51,12 @@ class RecipeOriginLocationViewController: UIViewController {
         ])
     }
 
-    private func showOriginLocation() {
-        let location = CLLocationCoordinate2D(latitude: coordinates.0, longitude: coordinates.1)
-        mapView.setCenter(location, animated: false)
+    private func showOriginLocationPin() {
+        let locationCoordinates = CLLocationCoordinate2D(latitude: coordinates.0, longitude: coordinates.1)
+        mapView.setCenter(locationCoordinates, animated: false)
+
+        let originLocationPin = MKPointAnnotation()
+        originLocationPin.coordinate = locationCoordinates
+        mapView.addAnnotation(originLocationPin)
     }
 }

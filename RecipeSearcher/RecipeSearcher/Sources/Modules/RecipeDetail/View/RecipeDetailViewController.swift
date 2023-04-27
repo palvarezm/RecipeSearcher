@@ -182,7 +182,7 @@ class RecipeDetailViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink { recipe in
                 #warning("Change navigation to MapLocationVC")
-                self.navigationController?.pushViewController(UIViewController(), animated: true)
+                self.navigationController?.pushViewController(RecipeOriginLocationViewController(), animated: true)
             }
             .store(in: &cancellables)
     }

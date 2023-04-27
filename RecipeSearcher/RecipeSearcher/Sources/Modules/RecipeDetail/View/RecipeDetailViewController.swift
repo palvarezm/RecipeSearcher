@@ -145,6 +145,11 @@ class RecipeDetailViewController: UIViewController {
         viewDidLoadSubject.send()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+
     // MARK: - Bindings
     private func bindings() {
         $recipeDetail

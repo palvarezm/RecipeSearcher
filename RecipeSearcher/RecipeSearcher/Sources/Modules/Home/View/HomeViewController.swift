@@ -39,7 +39,6 @@ class HomeViewController: UIViewController {
     private enum Constants {
         static let viewBackgroundColor = UIColor.white
         // Margins
-        static let searchBarTopMargin = 36.0
         static let searchBarHorizontalMargin = 16.0
     }
 
@@ -64,6 +63,11 @@ class HomeViewController: UIViewController {
         view.backgroundColor = Constants.viewBackgroundColor
         setup()
         viewDidLoadSubject.send()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: false)
     }
 
     // MARK: - Bindings
@@ -110,8 +114,7 @@ class HomeViewController: UIViewController {
     private func setupSearchBar() {
         view.addSubview(searchBar)
         NSLayoutConstraint.activate([
-            searchBar.topAnchor.constraint(equalTo: view.topAnchor,
-                                           constant: Constants.searchBarTopMargin),
+            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor,
                                                constant: Constants.searchBarHorizontalMargin),
             searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor,

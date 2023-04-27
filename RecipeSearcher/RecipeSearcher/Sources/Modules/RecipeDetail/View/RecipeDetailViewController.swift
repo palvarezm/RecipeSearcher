@@ -70,6 +70,20 @@ class RecipeDetailViewController: UIViewController {
         return view
     }()
 
+    private lazy var checkOriginLocationButton: UIButton = {
+        let view = UIButton()
+        view.configuration = .bordered()
+        view.configuration?.cornerStyle = .capsule
+        view.configuration?.buttonSize = .large
+        view.configuration?.title = "recipe_detail_check_origin_button_title".localized
+        view.configuration?.baseForegroundColor = Constants.checkOriginLocationButtonTitleColor
+        view.configuration?.baseBackgroundColor = .primary
+        view.configuration?.image = .init(systemName: "map")
+        view.configuration?.imagePadding = Constants.checkOriginLocationButtonImagePadding
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
     private var viewModel: RecipeDetailViewModel
     @Published private var recipeDetail: RecipeDetailModel?
 
@@ -88,11 +102,14 @@ class RecipeDetailViewController: UIViewController {
         static let ingredientsLabelHorizontalMargin = 16.0
         static let ingredientsStackViewTopMargin = 8.0
         static let ingredientsStackViewHorizontalMargin = 16.0
-        static let stepsStackViewTopMargin = 8.0
-        static let stepsStackViewHorizontalMargin = 16.0
         static let stepsLabelTopMargin = 16.0
         static let stepsLabelHorizontalMargin = 16.0
-        static let stepsLabelBottomMargin = 16.0
+        static let stepsStackViewTopMargin = 8.0
+        static let stepsStackViewHorizontalMargin = 16.0
+        static let checkOriginLocationButtonTopMargin = 24.0
+        static let checkOriginLocationButtonHorizontalMargin = 48.0
+        static let checkOriginLocationButtonBottomMargin = 16.0
+        static let checkOriginLocationButtonImagePadding = 8.0
         // Label
         static let nameLabelFontSize = 28.0
         static let ingredientsTitleLabelFontSize = 22.0
@@ -101,6 +118,8 @@ class RecipeDetailViewController: UIViewController {
         static let stepLabelFontSize = 16.0
         // Image
         static let imageViewMaxHeight = 450.0
+        // Button
+        static let checkOriginLocationButtonTitleColor = UIColor.white
     }
 
     // MARK: - Initializers
@@ -162,8 +181,8 @@ class RecipeDetailViewController: UIViewController {
         output.navigateToRecipeDetailPublisher
             .receive(on: DispatchQueue.main)
             .sink { recipe in
-                #warning("Implement navigation")
-                debugPrint("Navigate to Map with \(recipe)")
+                #warning("Change navigation to MapLocationVC")
+                self.navigationController?.pushViewController(UIViewController(), animated: true)
             }
             .store(in: &cancellables)
     }
@@ -178,6 +197,8 @@ class RecipeDetailViewController: UIViewController {
         setupIngredientsStackView()
         setupStepsTitleLabel()
         setupStepsStackView()
+        setupCheckOriginLocationButton()
+        setupCheckOriginButtonAction()
     }
 
     private func setupScrollView() {
@@ -268,13 +289,25 @@ class RecipeDetailViewController: UIViewController {
             stepsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,
                                                     constant: Constants.stepsStackViewHorizontalMargin),
             stepsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,
-                                                     constant: -Constants.stepsStackViewHorizontalMargin),
-            stepsStackView.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor,
-                                                   constant: -Constants.stepsLabelBottomMargin)
+                                                     constant: -Constants.stepsStackViewHorizontalMargin)
         ])
     }
 
-    // Configuration
+    private func setupCheckOriginLocationButton() {
+        contentView.addSubview(checkOriginLocationButton)
+        NSLayoutConstraint.activate([
+            checkOriginLocationButton.topAnchor.constraint(equalTo: stepsStackView.bottomAnchor,
+                                                           constant: Constants.checkOriginLocationButtonTopMargin),
+            checkOriginLocationButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,
+                                                           constant: Constants.checkOriginLocationButtonHorizontalMargin),
+            checkOriginLocationButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,
+                                                                constant: -Constants.checkOriginLocationButtonHorizontalMargin),
+            checkOriginLocationButton.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor,
+                                                              constant: -Constants.checkOriginLocationButtonBottomMargin)
+        ])
+    }
+
+    // MARK: - Configuration
     private func listIngredients() {
         recipeDetail?.ingredients.forEach { ingredientsStackView.addArrangedSubview(buildIngredientLabel(text: $0)) }
     }
@@ -300,5 +333,15 @@ class RecipeDetailViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: Constants.stepLabelFontSize)
         label.numberOfLines = 0
         return label
+    }
+
+    // MARK: - Actions
+    private func setupCheckOriginButtonAction() {
+        checkOriginLocationButton.addTarget(self, action: #selector(checkOriginButtonTapped), for: .touchUpInside)
+    }
+
+    @objc
+    private func checkOriginButtonTapped() {
+        navigateToMapTappedSubject.send()
     }
 }

@@ -1,0 +1,32 @@
+[
+    {
+        "id": 0,
+        "imageURL": "https://www.imageurl.com",
+        "name": "delectus aut autem",
+        "ingredients": [
+            {
+                "name": "quis ut nam facilis et officia qui",
+                "type": "Meat"
+            },
+            {
+                "name": "fugiat veniam minus",
+                "type": "Baking"
+            }
+        ]
+    },
+    {
+        "id": 1,
+        "imageURL": "https://www.imageurl2.com",
+        "name": "et porro tempora",
+        "ingredients": [
+            {
+                "name": "laboriosam mollitia et enim quasi adipisci quia provident illum",
+                "type": "Produce"
+            },
+            {
+                "name": "illo expedita consequatur quia in",
+                "type": "Condiments"
+            }
+        ]
+    }
+]

@@ -27,7 +27,7 @@ class HomeViewModel {
     private var cancellables = Set<AnyCancellable>()
 
     // MARK: - Initializers
-    init(apiClient: APIClient = APIClientImpl()) {
+    init(apiClient: APIClient = APIClient()) {
         self.apiClient = apiClient
     }
 

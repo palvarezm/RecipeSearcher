@@ -25,7 +25,7 @@ class RecipeDetailViewModel {
     private var cancellables = Set<AnyCancellable>()
 
     // MARK: - Initializers
-    init(from recipeId: Int, apiClient: APIClient = APIClientImpl()) {
+    init(from recipeId: Int, apiClient: APIClient = APIClient()) {
         self.recipeId = recipeId
         self.apiClient = apiClient
     }

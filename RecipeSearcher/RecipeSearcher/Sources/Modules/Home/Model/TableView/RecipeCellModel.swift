@@ -5,7 +5,7 @@
 //  Created by Paul Alvarez on 25/04/23.
 //
 
-struct RecipeCellModel {
+struct RecipeCellModel: Equatable {
     let id: Int
     let imageURL: String
     let name: String

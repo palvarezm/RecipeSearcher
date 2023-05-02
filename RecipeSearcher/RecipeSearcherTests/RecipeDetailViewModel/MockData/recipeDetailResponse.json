@@ -1,0 +1,39 @@
+{
+    "id": 0,
+    "name": "At vero eos",
+    "ingredients": [
+        {
+            "quantity": "1",
+            "name": "et accusamus",
+            "type": "Meat"
+        },
+        {
+            "quantity": "1 package",
+            "name": "odio dignissimos ducimus",
+            "type": "Baking"
+        },
+        {
+            "quantity": "1 package",
+            "name": "qui blanditiis",
+            "type": "Condiments"
+        }
+    ],
+    "steps": [
+        "deleniti atque corrupti",
+        "quos dolores et quas molestias",
+        "excepturi sint",
+        "obcaecati cupiditate"
+    ],
+    "timers": [
+        10,
+        20,
+        30,
+        40
+    ],
+    "imageURL": "https://www.imageurl.com",
+    "originalURL": "https://www.originalimageurl.com",
+    "location": {
+        "latitude": 12.3456,
+        "longitude": 78.9012
+    }
+}

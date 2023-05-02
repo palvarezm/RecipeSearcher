@@ -22,6 +22,8 @@
 		83260C6129F91C18000DCBDB /* RecipeDetailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83260C6029F91C18000DCBDB /* RecipeDetailResponse.swift */; };
 		83260C6429F93085000DCBDB /* APIParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83260C6329F93085000DCBDB /* APIParameters.swift */; };
 		83260C6829F930F3000DCBDB /* Encodable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83260C6729F930F3000DCBDB /* Encodable+Extension.swift */; };
+		8394B1492A00696400EFDA27 /* recipeDetailResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8394B1482A00696400EFDA27 /* recipeDetailResponse.json */; };
+		8394B14C2A00697A00EFDA27 /* RecipeDetailViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8394B14B2A00697A00EFDA27 /* RecipeDetailViewModelTests.swift */; };
 		83B37BE629FD77E0008C1EBB /* URLProtocolMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B37BE529FD77E0008C1EBB /* URLProtocolMock.swift */; };
 		83B37BE929FD7BA1008C1EBB /* TestsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B37BE829FD7BA1008C1EBB /* TestsHelper.swift */; };
 		83B37BEF29FD8C26008C1EBB /* recipesResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 83B37BEE29FD8C26008C1EBB /* recipesResponse.json */; };
@@ -61,6 +63,8 @@
 		83260C6029F91C18000DCBDB /* RecipeDetailResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailResponse.swift; sourceTree = "<group>"; };
 		83260C6329F93085000DCBDB /* APIParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIParameters.swift; sourceTree = "<group>"; };
 		83260C6729F930F3000DCBDB /* Encodable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+Extension.swift"; sourceTree = "<group>"; };
+		8394B1482A00696400EFDA27 /* recipeDetailResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = recipeDetailResponse.json; sourceTree = "<group>"; };
+		8394B14B2A00697A00EFDA27 /* RecipeDetailViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailViewModelTests.swift; sourceTree = "<group>"; };
 		83B37BE529FD77E0008C1EBB /* URLProtocolMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLProtocolMock.swift; sourceTree = "<group>"; };
 		83B37BE829FD7BA1008C1EBB /* TestsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestsHelper.swift; sourceTree = "<group>"; };
 		83B37BEE29FD8C26008C1EBB /* recipesResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = recipesResponse.json; sourceTree = "<group>"; };
@@ -216,6 +220,23 @@
 			path = Localizables;
 			sourceTree = "<group>";
 		};
+		8394B1472A00695100EFDA27 /* RecipeDetailViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				8394B14B2A00697A00EFDA27 /* RecipeDetailViewModelTests.swift */,
+				8394B14A2A00696700EFDA27 /* MockData */,
+			);
+			path = RecipeDetailViewModel;
+			sourceTree = "<group>";
+		};
+		8394B14A2A00696700EFDA27 /* MockData */ = {
+			isa = PBXGroup;
+			children = (
+				8394B1482A00696400EFDA27 /* recipeDetailResponse.json */,
+			);
+			path = MockData;
+			sourceTree = "<group>";
+		};
 		83B37BE429FD77D4008C1EBB /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
@@ -295,6 +316,7 @@
 		83F97BE329F3419E0098FAC6 /* RecipeSearcherTests */ = {
 			isa = PBXGroup;
 			children = (
+				8394B1472A00695100EFDA27 /* RecipeDetailViewModel */,
 				83B37BF029FDB746008C1EBB /* HomeViewModel */,
 				83B37BE729FD7B7E008C1EBB /* Helper */,
 				83B37BE429FD77D4008C1EBB /* Mocks */,
@@ -453,6 +475,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				83B37BEF29FD8C26008C1EBB /* recipesResponse.json in Resources */,
+				8394B1492A00696400EFDA27 /* recipeDetailResponse.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -492,6 +515,7 @@
 			files = (
 				83B37BE929FD7BA1008C1EBB /* TestsHelper.swift in Sources */,
 				83F97BE529F3419E0098FAC6 /* HomeViewModelTests.swift in Sources */,
+				8394B14C2A00697A00EFDA27 /* RecipeDetailViewModelTests.swift in Sources */,
 				83B37BE629FD77E0008C1EBB /* URLProtocolMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
